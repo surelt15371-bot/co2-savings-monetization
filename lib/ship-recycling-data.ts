@@ -647,26 +647,49 @@ export function calculateMonetizationPotential(
 // UTILITY FUNCTIONS
 // ============================================================
 
-export function formatNumber(num: number | undefined, decimals: number = 0): string {
+/**
+ * Adaptive number formatting with precision for small decimals
+ * Values < 1: up to 6 decimal places
+ * Values >= 1: 2 decimal places
+ * Large values: comma-separated with 2 decimals
+ */
+export function formatNumber(num: number | undefined, decimals?: number): string {
   if (num === undefined || num === null || isNaN(num)) return "0";
+  
+  // If decimals explicitly provided, use it
+  if (decimals !== undefined) {
+    return num.toLocaleString('en-IN', {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    });
+  }
+  
+  // Adaptive precision: preserve small decimals, round larger values
+  let adaptiveDecimals = 2;
+  if (Math.abs(num) < 1 && num !== 0) {
+    // For values < 1, show up to 6 significant decimals
+    adaptiveDecimals = 6;
+  } else if (Math.abs(num) >= 1) {
+    adaptiveDecimals = 2;
+  }
+  
   return num.toLocaleString('en-IN', {
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
+    minimumFractionDigits: Math.min(adaptiveDecimals, 2),
+    maximumFractionDigits: adaptiveDecimals,
   });
 }
 
 export function formatCurrency(num: number | undefined, currency: string = 'USD'): string {
   if (num === undefined || num === null || isNaN(num)) return "$0";
-  return num.toLocaleString('en-US', {
-    style: 'currency',
-    currency,
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  });
-}
-
-export function formatCurrencyDecimals(num: number | undefined, currency: string = 'USD', decimals: number = 2): string {
-  if (num === undefined || num === null || isNaN(num)) return `${currency === 'INR' ? '₹' : '$'}0.00`;
+  
+  // Adaptive decimals for currency as well
+  let decimals = 0;
+  if (Math.abs(num) < 1 && num !== 0) {
+    decimals = 4;
+  } else if (Math.abs(num) < 100) {
+    decimals = 2;
+  }
+  
   return num.toLocaleString('en-US', {
     style: 'currency',
     currency,
@@ -675,13 +698,39 @@ export function formatCurrencyDecimals(num: number | undefined, currency: string
   });
 }
 
+export function formatCurrencyDecimals(num: number | undefined, currency: string = 'USD', decimals: number = 2): string {
+  if (num === undefined || num === null || isNaN(num)) return `${currency === 'INR' ? '₹' : '$'}0.00`;
+  
+  // If decimals not explicitly set to 2, use adaptive precision for small values
+  let finalDecimals = decimals;
+  if (decimals === 2 && Math.abs(num) < 1 && num !== 0) {
+    finalDecimals = 4;
+  }
+  
+  return num.toLocaleString('en-US', {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: finalDecimals,
+    maximumFractionDigits: finalDecimals,
+  });
+}
+
 export function formatINR(num: number | undefined): string {
   if (num === undefined || num === null || isNaN(num)) return "₹0";
+  
+  // Adaptive decimals for INR
+  let decimals = 0;
+  if (Math.abs(num) < 1 && num !== 0) {
+    decimals = 4;
+  } else if (Math.abs(num) < 100) {
+    decimals = 2;
+  }
+  
   return num.toLocaleString('en-IN', {
     style: 'currency',
     currency: 'INR',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
   });
 }
 

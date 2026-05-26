@@ -36,20 +36,24 @@ export default function ShipRecyclingPage() {
           {/* Key Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-              <p className="text-3xl font-bold">1.6</p>
-              <p className="text-sm text-teal-100">tonnes CO2 saved per tonne steel</p>
+              <p className="text-3xl font-bold">1.67</p>
+              <p className="text-sm text-teal-100 mt-1">tCO₂ Avoided per tonne of recycled steel</p>
+              <p className="text-xs text-teal-200 mt-2">Source: IEA / worldsteel</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
               <p className="text-3xl font-bold">$13B</p>
-              <p className="text-sm text-teal-100">market by 2030</p>
+              <p className="text-sm text-teal-100 mt-1">Projected global ship recycling market by 2030</p>
+              <p className="text-xs text-teal-200 mt-2">Source: BCC Research (2025)</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-              <p className="text-3xl font-bold">5x</p>
-              <p className="text-sm text-teal-100">growth by 2033</p>
+              <p className="text-3xl font-bold">3×</p>
+              <p className="text-sm text-teal-100 mt-1">Increase in projected recycling tonnage</p>
+              <p className="text-xs text-teal-200 mt-2">Source: BIMCO (2025)</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-              <p className="text-3xl font-bold">95%</p>
-              <p className="text-sm text-teal-100">material recovery</p>
+              <p className="text-3xl font-bold">95–98%</p>
+              <p className="text-sm text-teal-100 mt-1">Material recovery potential</p>
+              <p className="text-xs text-teal-200 mt-2">Source: Climate Catalyst & PwC India (2024)</p>
             </div>
           </div>
         </div>
@@ -133,13 +137,12 @@ export default function ShipRecyclingPage() {
 
       {/* Footer */}
       <footer className="bg-slate-900 text-slate-300 mt-16">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-10">
           <div className="grid gap-8 md:grid-cols-3">
-            <div>
+            <div className="flex flex-col justify-center min-h-[120px]">
               <h3 className="font-semibold text-white mb-3">About This Tool</h3>
-              <p className="text-sm">
-                This research tool provides comprehensive data and calculations for understanding 
-                the environmental and economic benefits of ship recycling for green steel production.
+              <p className="text-sm text-slate-300 italic border-l-2 border-teal-400 pl-3 whitespace-normal break-words">
+                This tool has been developed as part of the Sustainable Ship Recycling Roadmap 2047 initiative to facilitate evidence-based analysis of environmental benefits, resource conservation, and decarbonisation opportunities in the ship recycling sector.
               </p>
             </div>
             <div>
